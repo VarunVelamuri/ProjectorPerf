@@ -4,6 +4,21 @@ import (
 	"math/rand"
 )
 
+const charset = "abcdefghijklmnopqrstuvwxyz" +
+	"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+
+func StringWithCharset(length int, charset string, seed *rand.Rand) string {
+	b := make([]byte, length)
+	for i := range b {
+		b[i] = charset[seed.Intn(len(charset))]
+	}
+	return string(b)
+}
+
+func String(length int, seed *rand.Rand) string {
+	return StringWithCharset(length, charset, seed)
+}
+
 func generateJson(inp string, seed *rand.Rand) map[string]interface{} {
 	doc := make(map[string]interface{})
 	doc["name"] = getName(inp, seed)
